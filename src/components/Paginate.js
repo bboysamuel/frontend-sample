@@ -40,12 +40,12 @@ const handleNextPage = () => {
         {items.map(num => (
           <Pagination style={{cursor: "pointer"}} key={num} className='page-item'
            onClick={() => pagination(num)}
-           href='!#!!!!!' className='page-link'>
+           href='#' className='page-link'>
               {num}
               </Pagination>
         ))}
 {         // displays the next button until the last page.
-currentPage === items.length ? ' ' : <Pagination.Next onClick={ handleNextPage}
+currentPage === items.length ? '' : <Pagination.Next onClick={ handleNextPage}
         />
 }
     </Pagination>
