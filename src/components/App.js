@@ -8,6 +8,7 @@ const BASE_API = 'https://randomuser.me/api'
 
 import {
 // components here
+UsersTable
 } from './'
 
 
@@ -37,6 +38,7 @@ const App = () => {
   return(<>
   <div className="app">
   <p>test display in App component</p>
+  <UsersTable users={users} setUsers={setUsers} />
   </div>
 
   </>)
