@@ -8,13 +8,20 @@ const BASE_API = 'https://randomuser.me/api'
 
 import {
 // components here
+// Sort
+// pagination
 UsersTable
 } from './'
 
 
 const App = () => {
   const [users, setUsers] = useState([])
-
+  const [currentPage, setCurrentPage] = useState(1)
+  const [usersPerPage, setUsersPerPage] = useState(10)
+// usersPerpage
+//current page
+//sort
+// clicked
 
   const handleInitialLoad = async () => {
     try {
@@ -38,7 +45,7 @@ const App = () => {
   return(<>
   <div className="app">
   <p>test display in App component</p>
-  <UsersTable users={users} setUsers={setUsers} />
+  <UsersTable users={users} setUsers={setUsers} currentPage={currentPage} usersPerPage={usersPerPage} />
   </div>
 
   </>)
