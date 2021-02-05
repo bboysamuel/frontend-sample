@@ -1,68 +1,105 @@
 
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Table from 'react-bootstrap/Table'
 
-
-
 const UsersTable = (props) => {
-  const { users, setUsers, usersPerPage, currentPage, setUsersPerPage} = props
-  console.log('users in userstable', users)
+  const {users, setUsers, currentPage, usersPerPage, clicked, setClicked} = props
 
   const user = users.map(({name, email}, index) => {
+
     return {name, email, index}
+    // name.first.sort()
   })
-    console.log('user in userstable', user)
 
-    // paginaton NOTE: perhaps break into pagination component
-    // const pageOfLastUser = currentPage * usersPerPage
-    // const pageOfFirstUser = pageOfLastUser - usersPerPage;
-    // const currentUsers = users.slice(pageOfFirstUser, pageOfLastUser)
+  // ------------  firstName sort
+  const handleSortFirstName = () => {
 
-    // handleSortFirstName
-    // handleSortLastName
-    // handleSortEmail
-    // maybe handle sort by index???
+  const usersSortedByFirstName = user.sort((a, b) => {
+    if (a.name.first > b.name.first) {
+      return 1
+    } else {
+      return -1
+    }
+  })
+    setUsers(usersSortedByFirstName)
+  }
 
+  // --------- lastName sort
 
-    return(<>
-      <div className="usersTableWrapper" style={{margin: "2rem"}}>
-      <Table striped bordered hover responsive="md">
-          <thead>
-            <tr className="cursorPoint">
-              <th>#</th>
-              <th
-              // onClick={handleSortFirstName}
-              >First Name</th>
-              <th
-              // onClick={handleSortLastName}
-              >Last Name</th>
-              <th
-              // onClick={handleSortEmail}
-              >Email</th>
-            </tr>
-          </thead>
-        { users && users.map(({name, email}, index) => {
-//was current users. not users.
-          return(<>
-         {/* { console.log('index', index) } */}
+  const handleSortLastName = () => {
 
-            <tbody >
-              <tr key={index}>
-                <td>{index}</td>
-                <td>{name.first}</td>
-                <td> {name.last}:</td>
-                <td className="mailToButton" onClick={ () => {
-                  window.open(`mailto:${email}`)
-                  //add style. make blue. cursor pointer
-                }}
-                >{email} </td>
-              </tr>
-            </tbody>
-          </>)
-        })}
-     </Table>
-    </div>
+  const usersSortedByLastName = user.sort((a, b) => {
+    if (a.name.last > b.name.last) {
+      return 1
+    } else {
+      return -1
+    }
+  })
+    setUsers(usersSortedByLastName)
+  }
+
+    // --------- email sort
+
+    const handleSortEmail = () => {
+    const usersSortedByEmail = user.sort((a, b) => {
+      if (a.email > b.email) {
+        return 1
+      } else {
+        return -1
+      }
+    })
+      setUsers(usersSortedByEmail)
+    }
+
+    // pagination logic. Prevents from displaying all users on page one.
+    // says the page x the amount of users to display tells my index of the last user on each page.
+    // console.log('idxLastUser', currentPage * usersPerPage)
+  const idxLastUser = currentPage * usersPerPage;
+  console.log('first user idx', idxLastUser - usersPerPage)
+  const idxFirstUser = idxLastUser - usersPerPage;
+  //these are the users I want displayed on the page.
+  // console.log('currentUsers on page', idxFirstUser, idxLastUser)
+  const currentUsers = user.slice(idxFirstUser, idxLastUser)
+
+  return(<>
+  <div className="usersTableWrapper" style={{margin: "2rem"}}>
+  <Table striped bordered hover responsive="md">
+      <thead>
+        <tr className="cursorPoint">
+          {/* <th>#</th> */}
+          <th
+          onClick={handleSortFirstName}
+          >First Name</th>
+          <th
+          onClick={handleSortLastName}
+          >Last Name</th>
+          <th
+          onClick={handleSortEmail}
+          >Email</th>
+        </tr>
+      </thead>
+    { currentUsers && currentUsers.map(({name, email}, index) => {
+
+      return(<>
+     {/* { console.log('index', index) } */}
+
+        <tbody >
+          <tr key={index}>
+            {/* <td>{index}</td> */}
+            <td>{name.first}</td>
+            <td> {name.last}:</td>
+            <td className="mailToButton" onClick={ () => {
+              window.open(`mailto:${email}`)
+            }}
+            >{email} </td>
+          </tr>
+        </tbody>
       </>)
+    })}
+ </Table>
+</div>
+  </>)
 }
 
 export default UsersTable
+

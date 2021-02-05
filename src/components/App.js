@@ -1,33 +1,33 @@
-
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
-const BASE_API = 'https://randomuser.me/api'
-
+// import components
 import {
-// components here
-// Sort
-// pagination
-UsersTable
+  UsersTable,
+  Paginate,
+  SortTable,
 } from './'
 
+const BASE_API = 'https://randomuser.me/api'
 
-const App = () => {
+const App = (props) => {
+
   const [users, setUsers] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [usersPerPage, setUsersPerPage] = useState(10)
-// usersPerpage
-//current page
-//sort
-// clicked
+  const [sort, setSort] = useState({})
+  const [clicked, setClicked] = useState({color: 'blue'})
+
+  const allUsers = users.length
+  const pagination = (num) => {
+    setCurrentPage(num)
+  }
 
   const handleInitialLoad = async () => {
     try {
-      const { data } = await axios.get(`${BASE_API}/?results=11`)
-      console.log('data in app.js', data)
-      console.log('data.results in app.js', data.results)
+      const {data} = await axios.get(`${BASE_API}/?results=111`)
       setUsers(data.results)
 
     } catch (error) {
@@ -39,15 +39,12 @@ const App = () => {
     handleInitialLoad()
   }, [])
 
-  // users comes as array of obj. Destructure for use. pass in as props
 
-
-  return(<>
+  return (<>
   <div className="app">
-  <p>test display in App component</p>
-  <UsersTable users={users} setUsers={setUsers} currentPage={currentPage} usersPerPage={usersPerPage} />
+<UsersTable users={users} setUsers={setUsers} currentPage={currentPage} setCurrentPage={setCurrentPage} usersPerPage={usersPerPage} setUsersPerPage={setUsersPerPage} clicked={clicked} setClicked={setClicked} />
+<Paginate users={users} usersPerPage={usersPerPage} allUsers={allUsers} pagination={pagination} currentPage={currentPage} setCurrentPage={setCurrentPage} sort={sort} setSort={setSort} />
   </div>
-
   </>)
 }
 

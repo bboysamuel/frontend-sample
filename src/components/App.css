@@ -1,0 +1,9 @@
+.cursorPoint th {
+  cursor: pointer;
+}
+
+.mailToButton {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
