@@ -7,7 +7,6 @@ import './App.css'
 import {
   UsersTable,
   Paginate,
-  SortTable,
 } from './'
 
 const BASE_API = 'https://randomuser.me/api'

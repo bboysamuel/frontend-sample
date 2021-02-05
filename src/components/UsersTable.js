@@ -51,14 +51,12 @@ const UsersTable = (props) => {
       setUsers(usersSortedByEmail)
     }
 
-    // pagination logic. Prevents from displaying all users on page one.
-    // says the page x the amount of users to display tells my index of the last user on each page.
-    // console.log('idxLastUser', currentPage * usersPerPage)
+    // pagination logic. Prevents from displaying all users on page one. Shows only the amount we want... 10.
+    //  tells index of the last user on each page.
   const idxLastUser = currentPage * usersPerPage;
-  console.log('first user idx', idxLastUser - usersPerPage)
+   //  tells index of the first user on each page.
   const idxFirstUser = idxLastUser - usersPerPage;
-  //these are the users I want displayed on the page.
-  // console.log('currentUsers on page', idxFirstUser, idxLastUser)
+  //these are the users I want displayed on the page... 10 at a time.
   const currentUsers = user.slice(idxFirstUser, idxLastUser)
 
   return(<>
@@ -81,8 +79,6 @@ const UsersTable = (props) => {
     { currentUsers && currentUsers.map(({name, email}, index) => {
 
       return(<>
-     {/* { console.log('index', index) } */}
-
         <tbody >
           <tr key={index}>
             {/* <td>{index}</td> */}
