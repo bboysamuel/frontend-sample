@@ -1,9 +1,24 @@
 
-import React from 'react'
+import React, {useState} from 'react'
 import Table from 'react-bootstrap/Table'
 
 const UsersTable = (props) => {
-  const {users, setUsers, currentPage, usersPerPage, clicked, setClicked} = props
+  const {users, setUsers, currentPage, usersPerPage} = props
+  const [colorFirstName, setColorFirstName] = useState("black")
+  const [colorEmail, setColorEmail] = useState("black")
+  const [colorLastName, setColorLastName] = useState('black')
+
+  const setStyleFirstName = (colorFirst) => {
+    setColorFirstName(colorFirst)
+  }
+
+  const setStyleLastName = (colorLast) => {
+    setColorLastName(colorLast)
+  }
+
+  const setStyleEmail = (colorEmail) => {
+    setColorEmail(colorEmail)
+  }
 
   const user = users.map(({name, email}, index) => {
 
@@ -13,7 +28,6 @@ const UsersTable = (props) => {
 
   // ------------  firstName sort
   const handleSortFirstName = () => {
-
   const usersSortedByFirstName = user.sort((a, b) => {
     if (a.name.first > b.name.first) {
       return 1
@@ -61,38 +75,61 @@ const UsersTable = (props) => {
 
   return(<>
   <div className="usersTableWrapper" style={{margin: "2rem"}}>
-  <Table striped bordered hover responsive="md">
-      <thead>
-        <tr className="cursorPoint">
-          {/* <th>#</th> */}
-          <th
-          onClick={handleSortFirstName}
-          >First Name</th>
-          <th
-          onClick={handleSortLastName}
-          >Last Name</th>
-          <th
-          onClick={handleSortEmail}
-          >Email</th>
-        </tr>
-      </thead>
-    { currentUsers && currentUsers.map(({name, email}, index) => {
-
-      return(<>
-        <tbody >
-          <tr key={index}>
-            {/* <td>{index}</td> */}
-            <td>{name.first}</td>
-            <td> {name.last}:</td>
-            <td className="mailToButton" onClick={ () => {
-              window.open(`mailto:${email}`)
+    <h1>Total Users: {users.length}</h1>
+    <Table style={{width: "100%"}} className="usersTableCont" striped bordered hover responsive="md">
+        <thead>
+          <tr className="cursorPoint">
+            {/* <th>#</th> */}
+            <th
+            style={{color: `${colorFirstName}`}}
+            onClick={() => {
+              setStyleFirstName('red')
+              setStyleEmail('black')
+              setStyleLastName('black')
+              handleSortFirstName()
             }}
-            >{email} </td>
+            >First Name</th>
+
+            <th
+            style={{color: `${colorLastName}`}}
+            onClick={() => {
+              setStyleFirstName('black')
+              setStyleEmail('black')
+              setStyleLastName('red')
+              handleSortLastName()
+            }
+            }
+            >Last Name</th>
+
+            <th style={{color: `${colorEmail}`}}
+            onClick={ () => {
+              setStyleFirstName('black')
+              setStyleEmail('red')
+              setStyleLastName('black')
+              handleSortEmail()
+            }
+
+            }
+            >Email</th>
           </tr>
-        </tbody>
-      </>)
-    })}
- </Table>
+        </thead>
+      { currentUsers && currentUsers.map(({name, email}, index) => {
+
+        return(<>
+          <tbody >
+            <tr key={index}>
+              {/* <td>{index}</td> */}
+              <td>{name.first}</td>
+              <td> {name.last}</td>
+              <td className="mailToButton" onClick={ () => {
+                window.open(`mailto:${email}`)
+              }}
+              >{email} </td>
+            </tr>
+          </tbody>
+        </>)
+      })}
+  </Table>
 </div>
   </>)
 }
