@@ -29,7 +29,7 @@ const Paginate = (props) => {
       }
 
         { // displays all page numbers
-        items.map(num => (<>
+        items.map(num => (
           <Pagination
             style={{cursor: "pointer"}}
             key={num}
@@ -39,7 +39,7 @@ const Paginate = (props) => {
             className='page-link'>
               {num}
           </Pagination>
-        </>))
+        ))
         }
 
       { // displays the next button until the last page.

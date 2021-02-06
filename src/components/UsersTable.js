@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react'
 import Table from 'react-bootstrap/Table'
-import { FaCaretUp, FaCaretDown } from 'react-icons/fa'
+import { FaCaretUp } from 'react-icons/fa'
 
 const UsersTable = (props) => {
   const {users, setUsers, currentPage, usersPerPage} = props
@@ -66,12 +66,12 @@ const UsersTable = (props) => {
       setUsers(usersSortedByEmail)
     }
 
-    // pagination logic. Prevents from displaying all users on page one. Shows only the amount we want... 10.
-    //  tells index of the last user on each page.
+    // pagination. Prevents from displaying all users on a single page. Shows only the amount we want... 10.
+    // tells index of the last user on each page.
   const idxLastUser = currentPage * usersPerPage;
-   //  tells index of the first user on each page.
+    // tells index of the first user on each page.
   const idxFirstUser = idxLastUser - usersPerPage;
-  //these are the users I want displayed on the page... 10 at a time.
+    // these are the users I want displayed on the page... 10 at a time.
   const currentUsers = user.slice(idxFirstUser, idxLastUser)
 
   return(<>
@@ -80,7 +80,6 @@ const UsersTable = (props) => {
     <Table style={{width: "100%"}} className="usersTableCont" striped bordered hover responsive="md">
         <thead>
           <tr className="cursorPoint">
-            {/* <th>#</th> */}
             <th
             style={{color: `${colorFirstName}`}}
             onClick={() => {
@@ -131,10 +130,9 @@ const UsersTable = (props) => {
           </tr>
         </thead>
       { currentUsers && currentUsers.map(({name, email}, index) => {
-        return(<>
+        return(
           <tbody key={index} >
             <tr>
-              {/* <td>{index}</td> */}
               <td>{name.first}</td>
               <td> {name.last}</td>
               <td className="mailToButton" onClick={ () => {
@@ -143,7 +141,7 @@ const UsersTable = (props) => {
               >{email} </td>
             </tr>
           </tbody>
-        </>)
+        )
       })}
   </Table>
 </div>
