@@ -1,6 +1,7 @@
 
 import React, {useState} from 'react'
 import Table from 'react-bootstrap/Table'
+import { FaCaretUp, FaCaretDown } from 'react-icons/fa'
 
 const UsersTable = (props) => {
   const {users, setUsers, currentPage, usersPerPage} = props
@@ -88,7 +89,11 @@ const UsersTable = (props) => {
               setStyleLastName('black')
               handleSortFirstName()
             }}
-            >First Name</th>
+            >First Name {
+              colorFirstName === 'black' ?
+              '' :
+              <FaCaretUp />
+            } </th>
 
             <th
             style={{color: `${colorLastName}`}}
@@ -99,7 +104,13 @@ const UsersTable = (props) => {
               handleSortLastName()
             }
             }
-            >Last Name</th>
+            >Last Name
+            {
+               colorLastName === 'black' ?
+               '' :
+               <FaCaretUp />
+            }
+            </th>
 
             <th style={{color: `${colorEmail}`}}
             onClick={ () => {
@@ -110,14 +121,19 @@ const UsersTable = (props) => {
             }
 
             }
-            >Email</th>
+            >Email
+              {
+               colorEmail === 'black' ?
+                ''  :
+               <FaCaretUp />
+              }
+            </th>
           </tr>
         </thead>
       { currentUsers && currentUsers.map(({name, email}, index) => {
-
         return(<>
-          <tbody >
-            <tr key={index}>
+          <tbody key={index} >
+            <tr>
               {/* <td>{index}</td> */}
               <td>{name.first}</td>
               <td> {name.last}</td>
