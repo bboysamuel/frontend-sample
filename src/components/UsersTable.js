@@ -29,14 +29,14 @@ const UsersTable = (props) => {
 
   // ------------  firstName sort
   const handleSortFirstName = () => {
-  const usersSortedByFirstName = user.sort((a, b) => {
-    if (a.name.first > b.name.first) {
-      return 1
-    } else {
-      return -1
-    }
-  })
-    setUsers(usersSortedByFirstName)
+    const usersSortedByFirstName = user.sort((a, b) => {
+      if (a.name.first > b.name.first) {
+          return 1
+        } else {
+          return -1
+        }
+    })
+      setUsers(usersSortedByFirstName)
   }
 
   // --------- lastName sort
@@ -75,76 +75,76 @@ const UsersTable = (props) => {
   const currentUsers = user.slice(idxFirstUser, idxLastUser)
 
   return(<>
-  <div className="usersTableWrapper" style={{margin: "2rem"}}>
-    <h1>Total Users: {users.length}</h1>
-    <Table style={{width: "100%"}} className="usersTableCont" striped bordered hover responsive="md">
-        <thead>
-          <tr className="cursorPoint">
-            <th
-            style={{color: `${colorFirstName}`}}
-            onClick={() => {
-              setStyleFirstName('red')
-              setStyleEmail('black')
-              setStyleLastName('black')
-              handleSortFirstName()
-            }}
-            >First Name {
-              colorFirstName === 'black' ?
-              '' :
-              <FaCaretUp />
-            } </th>
-
-            <th
-            style={{color: `${colorLastName}`}}
-            onClick={() => {
-              setStyleFirstName('black')
-              setStyleEmail('black')
-              setStyleLastName('red')
-              handleSortLastName()
-            }
-            }
-            >Last Name
-            {
-               colorLastName === 'black' ?
-               '' :
-               <FaCaretUp />
-            }
-            </th>
-
-            <th style={{color: `${colorEmail}`}}
-            onClick={ () => {
-              setStyleFirstName('black')
-              setStyleEmail('red')
-              setStyleLastName('black')
-              handleSortEmail()
-            }
-
-            }
-            >Email
-              {
-               colorEmail === 'black' ?
-                ''  :
-               <FaCaretUp />
-              }
-            </th>
-          </tr>
-        </thead>
-      { currentUsers && currentUsers.map(({name, email}, index) => {
-        return(
-          <tbody key={index} >
-            <tr>
-              <td>{name.first}</td>
-              <td> {name.last}</td>
-              <td className="mailToButton" onClick={ () => {
-                window.open(`mailto:${email}`)
+    <div className="usersTableWrapper" style={{margin: "2rem"}}>
+      <h1>Total Users: {users.length}</h1>
+      <Table style={{width: "100%"}} className="usersTableCont" striped bordered hover responsive="md">
+          <thead>
+            <tr className="cursorPoint">
+              <th
+              style={{color: `${colorFirstName}`}}
+              onClick={() => {
+                setStyleFirstName('red')
+                setStyleEmail('black')
+                setStyleLastName('black')
+                handleSortFirstName()
               }}
-              >{email} </td>
+              >First Name {
+                colorFirstName === 'black' ?
+                '' :
+                <FaCaretUp />
+              } </th>
+
+              <th
+              style={{color: `${colorLastName}`}}
+              onClick={() => {
+                setStyleFirstName('black')
+                setStyleEmail('black')
+                setStyleLastName('red')
+                handleSortLastName()
+              }
+              }
+              >Last Name
+              {
+                colorLastName === 'black' ?
+                '' :
+                <FaCaretUp />
+              }
+              </th>
+
+              <th style={{color: `${colorEmail}`}}
+              onClick={ () => {
+                setStyleFirstName('black')
+                setStyleEmail('red')
+                setStyleLastName('black')
+                handleSortEmail()
+              }
+
+              }
+              >Email
+                {
+                colorEmail === 'black' ?
+                  ''  :
+                <FaCaretUp />
+                }
+              </th>
             </tr>
-          </tbody>
-        )
-      })}
-  </Table>
-</div>
+          </thead>
+        { currentUsers && currentUsers.map(({name, email}, index) => {
+          return(
+            <tbody key={index} >
+              <tr>
+                <td>{name.first}</td>
+                <td> {name.last}</td>
+                <td className="mailToButton" onClick={ () => {
+                  window.open(`mailto:${email}`)
+                }}
+                >{email} </td>
+              </tr>
+            </tbody>
+          )
+        })}
+      </Table>
+      </div>
   </>)
 }
 
